@@ -81,7 +81,21 @@ jest.mock('react-native-geolocation-service', () => ({
         timestamp: Date.now(),
       });
     }),
-    watchPosition: jest.fn(() => 1),
+    watchPosition: jest.fn(success => {
+      success({
+        coords: {
+          latitude: -32.4833,
+          longitude: -58.2333,
+          altitude: 25,
+          accuracy: 5,
+          altitudeAccuracy: 5,
+          heading: 0,
+          speed: 0,
+        },
+        timestamp: Date.now(),
+      });
+      return 1;
+    }),
     clearWatch: jest.fn(),
   },
 }));
