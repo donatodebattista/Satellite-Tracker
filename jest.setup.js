@@ -145,6 +145,47 @@ jest.mock('@notifee/react-native', () => ({
   },
 }));
 
+jest.mock('react-native-svg', () => {
+  const React = require('react');
+  const { View, Text } = require('react-native');
+
+  const createMockComponent = name => props =>
+    React.createElement(
+      View,
+      { testID: `svg-${name}`, ...props },
+      props.children,
+    );
+
+  return {
+    __esModule: true,
+    default: createMockComponent('svg'),
+    Svg: createMockComponent('svg'),
+    Circle: createMockComponent('circle'),
+    Line: createMockComponent('line'),
+    Path: createMockComponent('path'),
+    Polyline: createMockComponent('polyline'),
+    Polygon: createMockComponent('polygon'),
+    Rect: createMockComponent('rect'),
+    G: createMockComponent('g'),
+    Text: props =>
+      React.createElement(
+        Text,
+        { testID: 'svg-text', ...props },
+        props.children,
+      ),
+    TSpan: props =>
+      React.createElement(
+        Text,
+        { testID: 'svg-tspan', ...props },
+        props.children,
+      ),
+    Defs: createMockComponent('defs'),
+    LinearGradient: createMockComponent('linear-gradient'),
+    RadialGradient: createMockComponent('radial-gradient'),
+    Stop: createMockComponent('stop'),
+  };
+});
+
 jest.mock('react-native-maps', () => {
   const React = require('react');
   const { View } = require('react-native');

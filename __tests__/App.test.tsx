@@ -1,4 +1,7 @@
+import React from 'react';
+import renderer, { act } from 'react-test-renderer';
 import { json2satrec, twoline2satrec } from 'satellite.js';
+import App from '../App';
 import {
   CATALOG_CATEGORIES,
   DEFAULT_OBSERVER_LOCATION,
@@ -50,5 +53,22 @@ describe('Phase 1 Scaffolding & Domain Base Verification', () => {
     const satrecFromTle = twoline2satrec(line1, line2);
     expect(satrecFromTle).toBeDefined();
     expect(satrecFromTle.satnum).toBe('25544');
+  });
+
+  it('renders App root shell with top bar and interactive action buttons', () => {
+    let tree: renderer.ReactTestRenderer;
+    act(() => {
+      tree = renderer.create(<App />);
+    });
+
+    const root = tree!.root;
+    expect(root.findByProps({ testID: 'search-catalog-btn' })).toBeDefined();
+    expect(root.findByProps({ testID: 'view-passes-btn' })).toBeDefined();
+    expect(root.findByProps({ testID: 'open-compass-btn' })).toBeDefined();
+    expect(root.findByProps({ testID: 'satellite-map-view' })).toBeDefined();
+
+    act(() => {
+      tree.unmount();
+    });
   });
 });
