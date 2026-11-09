@@ -37,7 +37,7 @@ export const ConstellationLayer: React.FC<ConstellationLayerProps> = ({
 
   useEffect(() => {
     if (!visible || satellites.length === 0) {
-      setPositions([]);
+      setPositions(prev => (prev.length === 0 ? prev : []));
       return;
     }
 
