@@ -15,6 +15,7 @@ import {
   LocationService,
   LookAngles,
   OrbitalElementSet,
+  PassNotificationService,
   PassPredictor,
   SatellitePassWindow,
   SEED_ORBITAL_ELEMENTS,
@@ -192,8 +193,8 @@ function App() {
         satelliteName={selectedSatellite.name}
         passes={predictedPasses}
         currentLookAngles={currentLookAngles}
-        onScheduleNotification={pass => {
-          // Scheduled notification hook (RF-06, integrated in Phase 7)
+        onScheduleNotification={async pass => {
+          await PassNotificationService.schedulePassNotification(pass, 10);
         }}
       />
 
