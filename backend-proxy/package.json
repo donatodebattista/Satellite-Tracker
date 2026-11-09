@@ -1,0 +1,12 @@
+{
+  "name": "satellite-tracker-backend-proxy",
+  "version": "1.0.0",
+  "description": "Lightweight authentication and rate-limiting proxy for Space-Track and N2YO APIs (PRD Section 4.3)",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "keywords": ["satellite", "proxy", "space-track", "n2yo"],
+  "author": "FCyT UADER - Programación Móviles",
+  "license": "MIT"
+}
