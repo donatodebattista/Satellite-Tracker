@@ -18,6 +18,21 @@ jest.mock('@react-native-async-storage/async-storage', () => {
         memoryStorage.clear();
       }),
       getAllKeys: jest.fn(async () => Array.from(memoryStorage.keys())),
+      setMany: jest.fn(async entries => {
+        for (const [k, v] of Object.entries(entries)) {
+          memoryStorage.set(k, v);
+        }
+      }),
+      removeMany: jest.fn(async keys => {
+        keys.forEach(k => memoryStorage.delete(k));
+      }),
+      getMany: jest.fn(async keys => {
+        const result = {};
+        for (const k of keys) {
+          result[k] = memoryStorage.has(k) ? memoryStorage.get(k) : null;
+        }
+        return result;
+      }),
       multiRemove: jest.fn(async keys => {
         keys.forEach(k => memoryStorage.delete(k));
       }),
