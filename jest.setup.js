@@ -145,6 +145,56 @@ jest.mock('@notifee/react-native', () => ({
   },
 }));
 
+jest.mock('react-native-maps', () => {
+  const React = require('react');
+  const { View } = require('react-native');
+
+  const MockMapView = React.forwardRef((props, ref) =>
+    React.createElement(
+      View,
+      { testID: props.testID || 'map-view', ...props, ref },
+      props.children,
+    ),
+  );
+
+  const MockMarker = props =>
+    React.createElement(
+      View,
+      { testID: props.testID || 'map-marker', ...props },
+      props.children,
+    );
+
+  const MockPolyline = props =>
+    React.createElement(View, {
+      testID: props.testID || 'map-polyline',
+      ...props,
+    });
+
+  const MockPolygon = props =>
+    React.createElement(View, {
+      testID: props.testID || 'map-polygon',
+      ...props,
+    });
+
+  const MockCircle = props =>
+    React.createElement(View, {
+      testID: props.testID || 'map-circle',
+      ...props,
+    });
+
+  return {
+    __esModule: true,
+    default: MockMapView,
+    MapView: MockMapView,
+    Marker: MockMarker,
+    Polyline: MockPolyline,
+    Polygon: MockPolygon,
+    Circle: MockCircle,
+    PROVIDER_GOOGLE: 'google',
+    PROVIDER_DEFAULT: 'default',
+  };
+});
+
 jest.mock('react-native-background-fetch', () => ({
   __esModule: true,
   default: {
